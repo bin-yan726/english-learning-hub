@@ -234,9 +234,105 @@ function toggleWordStatus(idx) {
   updateDashboard();
 }
 
+const autoFetchBtn = document.getElementById('auto-fetch-btn');
+const fetchStatusText = document.getElementById('fetch-status-text');
+
+async function autoFetchDictionaryData() {
+  const word = wordInput.value.trim();
+  if (!word) {
+    if (fetchStatusText) {
+      fetchStatusText.textContent = '❌ 请先在上方输入英文单词！';
+      fetchStatusText.className = 'fetch-status-text error';
+    }
+    wordInput.focus();
+    return;
+  }
+
+  if (fetchStatusText) {
+    fetchStatusText.textContent = '🔍 正在查询权威词典 API...';
+    fetchStatusText.className = 'fetch-status-text loading';
+  }
+  if (autoFetchBtn) autoFetchBtn.disabled = true;
+
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+    if (!res.ok) {
+      throw new Error('NotFound');
+    }
+    const data = await res.json();
+    if (!data || data.length === 0) {
+      throw new Error('NotFound');
+    }
+
+    const entry = data[0];
+
+    // 1. Parse Phonetic
+    let phonetic = entry.phonetic || '';
+    if (!phonetic && entry.phonetics && entry.phonetics.length > 0) {
+      const found = entry.phonetics.find(p => p.text);
+      if (found) phonetic = found.text;
+    }
+    if (phonetic) phoneticInput.value = phonetic;
+
+    // 2. Parse Meanings & Part of Speech
+    const partOfSpeechMap = {
+      noun: 'n.', verb: 'v.', adjective: 'adj.', adverb: 'adv.',
+      preposition: 'prep.', conjunction: 'conj.', pronoun: 'pron.', interjection: 'int.'
+    };
+
+    let meaningParts = [];
+    let foundExample = '';
+
+    if (entry.meanings && entry.meanings.length > 0) {
+      entry.meanings.forEach(m => {
+        const pos = partOfSpeechMap[m.partOfSpeech] || `${m.partOfSpeech}.`;
+        const defs = m.definitions ? m.definitions.slice(0, 2).map(d => d.definition) : [];
+        if (defs.length > 0) {
+          meaningParts.push(`${pos} ${defs.join('; ')}`);
+        }
+
+        // Find example
+        if (!foundExample && m.definitions) {
+          const exDef = m.definitions.find(d => d.example);
+          if (exDef) foundExample = exDef.example;
+        }
+      });
+    }
+
+    if (meaningParts.length > 0) {
+      meaningInput.value = meaningParts.join(' | ');
+    }
+
+    if (foundExample) {
+      exampleInput.value = foundExample;
+    }
+
+    if (fetchStatusText) {
+      fetchStatusText.textContent = '✅ 已成功自动提取词典解析与例句！';
+      fetchStatusText.className = 'fetch-status-text success';
+    }
+  } catch (err) {
+    console.warn('Dictionary fetch note:', err);
+    if (fetchStatusText) {
+      fetchStatusText.textContent = '⚠️ 词典未检索到该词条，您可以手动输入释义。';
+      fetchStatusText.className = 'fetch-status-text error';
+    }
+  } finally {
+    if (autoFetchBtn) autoFetchBtn.disabled = false;
+  }
+}
+
+if (autoFetchBtn) {
+  autoFetchBtn.addEventListener('click', autoFetchDictionaryData);
+}
+
 // Modal Handlers for Vocabulary
 function openWordModal(editIdx = -1) {
   editIndexInput.value = editIdx;
+  if (fetchStatusText) {
+    fetchStatusText.textContent = '';
+    fetchStatusText.className = 'fetch-status-text';
+  }
   if (editIdx >= 0) {
     const card = vocabCards[editIdx];
     modalTitle.textContent = '编辑单词信息';
@@ -258,6 +354,10 @@ function openWordModal(editIdx = -1) {
 function closeWordModal() {
   wordModal.classList.add('hidden');
   wordForm.reset();
+  if (fetchStatusText) {
+    fetchStatusText.textContent = '';
+    fetchStatusText.className = 'fetch-status-text';
+  }
 }
 
 addCardBtn.addEventListener('click', () => openWordModal(-1));

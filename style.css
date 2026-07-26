@@ -830,6 +830,36 @@ body {
   border-color: var(--primary);
 }
 
+.input-with-btn {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-sm {
+  font-size: 0.82rem;
+  padding: 0.55rem 0.85rem;
+  white-space: nowrap;
+}
+
+.fetch-status-text {
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  display: block;
+}
+
+.fetch-status-text.loading {
+  color: var(--accent);
+}
+
+.fetch-status-text.success {
+  color: var(--success);
+}
+
+.fetch-status-text.error {
+  color: var(--danger);
+}
+
 .checkbox-group {
   flex-direction: row;
   align-items: center;

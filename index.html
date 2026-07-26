@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260726_3" />
+  <link rel="stylesheet" href="style.css?v=20260726_4" />
 </head>
 <body>
   <!-- Header Navbar -->
@@ -184,7 +184,11 @@
         <input type="hidden" id="edit-word-index" value="-1" />
         <div class="form-group">
           <label for="word-input">英文单词 / 词组 <span class="required">*</span></label>
-          <input type="text" id="word-input" placeholder="例如: ephemeral" required />
+          <div class="input-with-btn">
+            <input type="text" id="word-input" placeholder="例如: ephemeral" required />
+            <button type="button" id="auto-fetch-btn" class="btn btn-accent btn-sm">✨ 自动查词</button>
+          </div>
+          <span id="fetch-status-text" class="fetch-status-text"></span>
         </div>
         <div class="form-group">
           <label for="phonetic-input">音标</label>
@@ -237,6 +241,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js?v=20260726_3" type="module"></script>
+  <script src="script.js?v=20260726_4" type="module"></script>
 </body>
 </html>
