@@ -1,0 +1,169 @@
+/* style.css - modern glassmorphism layout */
+
+:root {
+  --bg-color: hsl(210, 30%, 12%);
+  --card-bg: hsla(210, 30%, 20%, 0.6);
+  --text-primary: hsl(210, 20%, 95%);
+  --accent: hsl(200, 80%, 55%);
+  --shadow: rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-color: hsl(210, 30%, 95%);
+    --card-bg: hsla(210, 30%, 100%, 0.7);
+    --text-primary: hsl(210, 20%, 10%);
+    --accent: hsl(200, 70%, 45%);
+    --shadow: rgba(0, 0, 0, 0.1);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: var(--card-bg);
+  padding: 1rem 2rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+nav .tab {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav .tab.active,
+nav .tab:hover {
+  color: var(--accent);
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section {
+  display: none;
+}
+.section.active {
+  display: block;
+}
+
+/* Vocabulary Card Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.vocab-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px var(--shadow);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.vocab-card:hover {
+  transform: translateY(-3px);
+  background: hsla(210, 30%, 25%, 0.7);
+}
+
+.vocab-card .front {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.vocab-card .back {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--accent);
+  display: none;
+}
+
+.vocab-card.show .back {
+  display: block;
+}
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background: hsl(200, 80%, 45%);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Listening List */
+#listening-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+#listening-list li {
+  background: var(--card-bg);
+  margin-bottom: 0.8rem;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+}
+
+/* Chart.js canvas responsive */
+#progress-chart {
+  max-width: 100%;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1rem;
+}

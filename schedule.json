@@ -1,0 +1,40 @@
+// schedule.json - sample daily schedule for the first week (extend as needed)
+[
+  {
+    "date": "2026-08-01",
+    "vocab": 15,
+    "listening": {
+      "title": "VOA - News in Levels",
+      "url": "https://learningenglish.voanews.com/z/3610",
+      "minutes": 5,
+      "newPhrases": 5
+    },
+    "speakingPrompt": "Introduce yourself for a job interview",
+    "grammar": "FreeCodeCamp – Chapter 1"
+  },
+  {
+    "date": "2026-08-02",
+    "vocab": 12,
+    "listening": {
+      "title": "BBC 6 Minute English - How to...",
+      "url": "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english",
+      "minutes": 6,
+      "newPhrases": 5
+    },
+    "speakingPrompt": "Ordering food in a restaurant",
+    "grammar": "FreeCodeCamp – Chapter 2"
+  },
+  {
+    "date": "2026-08-03",
+    "vocab": 13,
+    "listening": {
+      "title": "TED-Ed - The science of...",
+      "url": "https://ed.ted.com/",
+      "minutes": 7,
+      "newPhrases": 5
+    },
+    "speakingPrompt": "Travel planning conversation",
+    "grammar": "FreeCodeCamp – Chapter 3"
+  }
+  // Add more daily objects for the full year as needed.
+]

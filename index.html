@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Learning Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>English Learning Hub</h1>
+    <nav>
+      <button class="tab" data-section="vocab">词汇卡</button>
+      <button class="tab" data-section="listening">Listening Log</button>
+      <button class="tab" data-section="dashboard">Progress Dashboard</button>
+      <button class="tab" data-section="schedule">Daily Schedule</button>
+      <button class="tab" data-section="essay">Essay Checker</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Vocabulary Card Section -->
+    <section id="vocab" class="section active">
+      <h2>词汇卡</h2>
+      <div id="card-container" class="card-grid"></div>
+      <button id="add-card-btn">+ 添加新单词</button>
+    </section>
+
+    <!-- Listening Log Section -->
+    <section id="listening" class="section">
+      <h2>Listening Log</h2>
+      <ul id="listening-list"></ul>
+      <button id="add-listening-btn">+ 添加听力记录</button>
+    </section>
+
+    <!-- Progress Dashboard Section -->
+    <section id="dashboard" class="section">
+      <h2>Progress Dashboard</h2>
+      <canvas id="progress-chart" width="400" height="200"></canvas>
+    </section>
+
+    <!-- Daily Schedule Section -->
+    <section id="schedule" class="section">
+      <h2>Daily Schedule</h2>
+      <div id="schedule-container" class="schedule-card"></div>
+    </section>
+
+    <!-- Essay Checker Section -->
+    <section id="essay" class="section">
+      <h2>Essay Checker</h2>
+      <textarea id="essay-input" placeholder="在此粘贴或输入英文作文（200-500 字）" rows="8"></textarea>
+      <button id="check-essay-btn">检查作文</button>
+      <div id="essay-result" class="essay-result"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 English Learning Hub – 免费资源自学</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" type="module"></script>
+</body>
+</html>
