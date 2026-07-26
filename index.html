@@ -1,62 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>English Learning Hub</title>
+  <title>English Learning Hub - 英语学习中心</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>English Learning Hub</h1>
-    <nav>
-      <button class="tab" data-section="vocab">词汇卡</button>
-      <button class="tab" data-section="listening">Listening Log</button>
-      <button class="tab" data-section="dashboard">Progress Dashboard</button>
-      <button class="tab" data-section="schedule">Daily Schedule</button>
-      <button class="tab" data-section="essay">Essay Checker</button>
-    </nav>
+  <!-- Header Navbar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-icon">✨</span>
+        <span class="logo-text">English <span class="highlight">Hub</span></span>
+      </div>
+      <nav class="nav-tabs">
+        <button class="tab active" data-section="vocab">
+          <span class="tab-icon">🎴</span> 词汇卡
+        </button>
+        <button class="tab" data-section="listening">
+          <span class="tab-icon">🎧</span> 听力日志
+        </button>
+        <button class="tab" data-section="dashboard">
+          <span class="tab-icon">📊</span> 学习看板
+        </button>
+        <button class="tab" data-section="schedule">
+          <span class="tab-icon">📅</span> 每日计划
+        </button>
+        <button class="tab" data-section="essay">
+          <span class="tab-icon">✍️</span> 语法与作文批改
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <main class="app-main">
     <!-- Vocabulary Card Section -->
     <section id="vocab" class="section active">
-      <h2>词汇卡</h2>
-      <div id="card-container" class="card-grid"></div>
-      <button id="add-card-btn">+ 添加新单词</button>
+      <div class="vocab-layout">
+        <!-- Sticky Side Action Panel -->
+        <aside class="vocab-sidebar">
+          <div class="sidebar-card primary-action">
+            <button id="add-card-btn" class="btn btn-primary btn-block">
+              <span class="btn-icon">➕</span> 新增单词
+            </button>
+            <p class="action-tip">快速记录新学词汇与例句</p>
+          </div>
+
+          <div class="sidebar-card search-card">
+            <h3>🔍 查找与筛选</h3>
+            <div class="search-box">
+              <input type="text" id="vocab-search" placeholder="搜索单词或中文释义..." />
+            </div>
+            <div class="filter-group">
+              <button class="filter-btn active" data-filter="all">全部 (<span id="count-all">0</span>)</button>
+              <button class="filter-btn" data-filter="review">需复习 (<span id="count-review">0</span>)</button>
+              <button class="filter-btn" data-filter="mastered">已掌握 (<span id="count-mastered">0</span>)</button>
+            </div>
+          </div>
+
+          <div class="sidebar-card stats-card">
+            <h3>📈 词汇掌握率</h3>
+            <div class="progress-bar-container">
+              <div id="vocab-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+            <div class="stats-footer">
+              <span id="vocab-mastery-rate">0% 已掌握</span>
+              <span id="vocab-total-badge">共 0 词</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Cards Grid Area -->
+        <div class="vocab-content">
+          <div class="section-header">
+            <h2>词汇卡片 <span class="sub-title">点击卡片翻转查看详细释义</span></h2>
+          </div>
+          <div id="card-container" class="card-grid"></div>
+          <div id="vocab-empty" class="empty-state hidden">
+            <span class="empty-icon">📖</span>
+            <p>暂无符合条件的单词，点击左侧“新增单词”开始积累吧！</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Listening Log Section -->
     <section id="listening" class="section">
-      <h2>Listening Log</h2>
-      <ul id="listening-list"></ul>
-      <button id="add-listening-btn">+ 添加听力记录</button>
+      <div class="listening-layout">
+        <div class="section-header-row">
+          <div>
+            <h2>🎧 听力学习日志</h2>
+            <p class="section-desc">记录每天听力练习材料与时长，保持听力感度</p>
+          </div>
+          <button id="add-listening-btn" class="btn btn-primary">➕ 记录听力</button>
+        </div>
+
+        <div class="listening-grid">
+          <div class="listening-card-wrapper">
+            <ul id="listening-list" class="listening-list"></ul>
+            <div id="listening-empty" class="empty-state hidden">
+              <span class="empty-icon">🎙️</span>
+              <p>尚无听力记录，快添加第一条吧！</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Progress Dashboard Section -->
     <section id="dashboard" class="section">
-      <h2>Progress Dashboard</h2>
-      <canvas id="progress-chart" width="400" height="200"></canvas>
+      <div class="section-header">
+        <h2>📊 学习进度统计</h2>
+        <p class="section-desc">直观了解你的词汇积累与听力时长变化</p>
+      </div>
+      <div class="dashboard-grid">
+        <div class="chart-container">
+          <canvas id="progress-chart"></canvas>
+        </div>
+        <div class="stats-overview">
+          <div class="stat-box">
+            <span class="stat-num" id="stat-total-vocab">0</span>
+            <span class="stat-label">总词汇量</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num" id="stat-mastered-vocab">0</span>
+            <span class="stat-label">已掌握词汇</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num" id="stat-total-listening">0 min</span>
+            <span class="stat-label">累计听力时长</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Daily Schedule Section -->
     <section id="schedule" class="section">
-      <h2>Daily Schedule</h2>
-      <div id="schedule-container" class="schedule-card"></div>
+      <div class="section-header">
+        <h2>📅 每日学习计划</h2>
+        <p class="section-desc">跟随科学规划，循序渐进提升英语能力</p>
+      </div>
+      <div id="schedule-container" class="schedule-grid"></div>
     </section>
 
     <!-- Essay Checker Section -->
     <section id="essay" class="section">
-      <h2>Essay Checker</h2>
-      <textarea id="essay-input" placeholder="在此粘贴或输入英文作文（200-500 字）" rows="8"></textarea>
-      <button id="check-essay-btn">检查作文</button>
-      <div id="essay-result" class="essay-result"></div>
+      <div class="section-header">
+        <h2>✍️ 语法与作文在线批改</h2>
+        <p class="section-desc">基于 AI 语法分析引擎，实时发现拼写与语法错误</p>
+      </div>
+      <div class="essay-container">
+        <div class="essay-editor-box">
+          <textarea id="essay-input" placeholder="在此粘贴或输入英文作文（推荐 50 - 500 字）..." rows="10"></textarea>
+          <div class="editor-actions">
+            <span id="essay-char-count">0 字</span>
+            <button id="check-essay-btn" class="btn btn-accent">✨ 开始智能批改</button>
+          </div>
+        </div>
+        <div id="essay-result" class="essay-result-box">
+          <p class="placeholder-text">批改结果将在此处显示...</p>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>© 2026 English Learning Hub – 免费资源自学</p>
+  <footer class="app-footer">
+    <p>© 2026 English Learning Hub – 打造沉浸式高效英语自学体验</p>
   </footer>
+
+  <!-- Modal: Add / Edit Word -->
+  <div id="word-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">新增单词</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <form id="word-form">
+        <input type="hidden" id="edit-word-index" value="-1" />
+        <div class="form-group">
+          <label for="word-input">英文单词 / 词组 <span class="required">*</span></label>
+          <input type="text" id="word-input" placeholder="例如: ephemeral" required />
+        </div>
+        <div class="form-group">
+          <label for="phonetic-input">音标</label>
+          <input type="text" id="phonetic-input" placeholder="例如: /ɪˈfemərəl/" />
+        </div>
+        <div class="form-group">
+          <label for="meaning-input">中文释义 / 词性 <span class="required">*</span></label>
+          <input type="text" id="meaning-input" placeholder="例如: adj. 转瞬即逝的，短暂的" required />
+        </div>
+        <div class="form-group">
+          <label for="example-input">例句</label>
+          <textarea id="example-input" placeholder="例如: Fame in the world of pop music is often ephemeral." rows="3"></textarea>
+        </div>
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="learned-input" />
+            <span>标记为“已掌握”</span>
+          </label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="modal-cancel-btn">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Listening Log -->
+  <div id="listening-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>新增听力记录</h3>
+        <button class="modal-close" id="listening-modal-close">&times;</button>
+      </div>
+      <form id="listening-form">
+        <div class="form-group">
+          <label for="listening-title-input">听力材料标题 / 来源 <span class="required">*</span></label>
+          <input type="text" id="listening-title-input" placeholder="例如: BBC 6 Minute English" required />
+        </div>
+        <div class="form-group">
+          <label for="listening-minutes-input">练习时长 (分钟) <span class="required">*</span></label>
+          <input type="number" id="listening-minutes-input" min="1" max="600" value="15" required />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="listening-modal-cancel">取消</button>
+          <button type="submit" class="btn btn-primary">添加</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js" type="module"></script>
