@@ -366,7 +366,7 @@ body {
 
 .vocab-card-wrapper {
   perspective: 1000px;
-  min-height: 180px;
+  height: 200px;
 }
 
 .vocab-card {
@@ -385,6 +385,8 @@ body {
 
 .card-face {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
@@ -412,6 +414,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 2;
 }
 
 .status-tag {
@@ -438,26 +441,29 @@ body {
 .card-actions {
   display: flex;
   gap: 0.4rem;
+  align-items: center;
 }
 
 .icon-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: none;
-  color: var(--text-muted);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
 .icon-btn:hover {
   background: var(--primary);
   color: #ffffff;
+  transform: scale(1.08);
 }
 
 .icon-btn.delete-btn:hover {
