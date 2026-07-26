@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-07-26",
+    "vocab": 10,
+    "listening": {
+      "title": "VOA Learning English – Daily News",
+      "url": "https://learningenglish.voanews.com/z/3610",
+      "minutes": 5,
+      "newPhrases": 5
+    },
+    "speakingPrompt": "自我介绍 – 你的兴趣和目标",
+    "grammar": "FreeCodeCamp – Chapter 0"
+  },
+  {
     "date": "2026-08-01",
     "vocab": 15,
     "listening": {
