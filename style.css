@@ -366,7 +366,7 @@ body {
 
 .vocab-card-wrapper {
   perspective: 1000px;
-  height: 200px;
+  height: 215px;
 }
 
 .vocab-card {
@@ -499,24 +499,45 @@ body {
 
 .card-face.card-back {
   transform: rotateY(180deg);
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.92);
+}
+
+.card-face.card-back .card-body-main {
+  overflow-y: auto;
+  max-height: 125px;
+  padding-right: 4px;
+  text-align: left;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.4) transparent;
+}
+
+.card-face.card-back .card-body-main::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-face.card-back .card-body-main::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.4);
+  border-radius: 4px;
 }
 
 .card-meaning {
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--accent);
   margin-bottom: 0.4rem;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
 .card-example {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.38;
+  font-style: italic;
+  word-break: break-word;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-top: 0.4rem;
+  margin-top: 0.4rem;
 }
 
 /* Empty State */
